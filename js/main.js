@@ -1,4 +1,3 @@
-
 let listaDeTareas = [];
 
 function agregarTarea() {
@@ -17,6 +16,7 @@ function mostrarTareas() {
         }
     }
 }
+
 function marcarComoCompletada() {
     if (listaDeTareas.length === 0) {
         console.log("No hay tareas para marcar como completadas.");
@@ -32,7 +32,6 @@ function marcarComoCompletada() {
             item.completada = true;
             tareaEncontrada = true;
             console.log(`Tarea "${tareaCompletar}" marcada como completada.`);
-            break;
         }
     }
     
@@ -41,3 +40,8 @@ function marcarComoCompletada() {
     }
 }
 
+
+agregarTarea(); 
+mostrarTareas(); 
+marcarComoCompletada(); 
+mostrarTareas(); 

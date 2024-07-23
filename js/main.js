@@ -1,47 +1,51 @@
 let listaDeTareas = [];
 
-function agregarTarea() {
-    let tarea = prompt("Ingrese la tarea:");
+function cargarTareas() {
+    const tareasGuardadas = localStorage.getItem('tareas');
+    if (tareasGuardadas) {
+        listaDeTareas = JSON.parse(tareasGuardadas);
+    }
+    mostrarTareas();
+}
+
+function guardarTareas() {
+    localStorage.setItem('tareas', JSON.stringify(listaDeTareas));
+}
+
+function agregarTarea(tarea) {
     listaDeTareas.push({ tarea: tarea, completada: false });
+    guardarTareas();
+    mostrarTareas();
 }
 
 function mostrarTareas() {
+    const taskList = document.getElementById('taskList');
+    taskList.innerHTML = '';
+
     if (listaDeTareas.length === 0) {
-        console.log("La lista de tareas está vacía.");
+        taskList.innerHTML = '<li>No hay tareas en la lista.</li>';
     } else {
-        console.log("Lista de tareas para el viaje:");
-        for (let i = 0; i < listaDeTareas.length; i++) {
-            let item = listaDeTareas[i];
-            console.log(`${i + 1}. ${item.tarea}`);
-        }
+        listaDeTareas.forEach((item, index) => {
+            const li = document.createElement('li');
+            li.textContent = item.tarea;
+            if (item.completada) {
+                li.classList.add('completed');
+            }
+            li.addEventListener('click', () => marcarComoCompletada(index));
+            taskList.appendChild(li);
+        });
     }
 }
 
-function marcarComoCompletada() {
-    if (listaDeTareas.length === 0) {
-        console.log("No hay tareas para marcar como completadas.");
-        return;
+document.getElementById('taskForm').addEventListener('submit', (event) => {
+    event.preventDefault();
+    const taskInput = document.getElementById('taskInput');
+    const tarea = taskInput.value.trim();
+    if (tarea) {
+        agregarTarea(tarea);
+        taskInput.value = '';
     }
-    
-    let tareaCompletar = prompt("Ingrese el nombre de la tarea a marcar como completada:");
-    let tareaEncontrada = false;
-
-    for (let i = 0; i < listaDeTareas.length; i++) {
-        let item = listaDeTareas[i];
-        if (item.tarea === tareaCompletar) {
-            item.completada = true;
-            tareaEncontrada = true;
-            console.log(`Tarea "${tareaCompletar}" marcada como completada.`);
-        }
-    }
-    
-    if (!tareaEncontrada) {
-        console.log(`No se encontró la tarea "${tareaCompletar}" en la lista.`);
-    }
-}
+});
 
 
-agregarTarea(); 
-mostrarTareas(); 
-marcarComoCompletada(); 
-mostrarTareas(); 
+cargarTareas();

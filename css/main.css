@@ -23,9 +23,10 @@ form {
     display: flex;
     gap: 10px;
     margin-bottom: 20px;
+    flex-wrap: wrap;
 }
 
-input[type="text"] {
+input[type="text"], select {
     flex: 1;
     padding: 10px;
     border: 1px solid #ddd;
@@ -53,9 +54,17 @@ ul {
 li {
     padding: 10px;
     border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 li.completed {
     text-decoration: line-through;
     color: #6c757d;
+}
+
+li .actions {
+    display: flex;
+    gap: 10px;
 }

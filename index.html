@@ -11,6 +11,12 @@
         <h1>Aplicación de Tareas</h1>
         <form id="taskForm">
             <input type="text" id="taskInput" placeholder="Ingrese una tarea" required>
+            <input type="text" id="taskDescription" placeholder="Ingrese una descripción">
+            <select id="taskPriority">
+                <option value="Alta">Alta</option>
+                <option value="Media">Media</option>
+                <option value="Baja">Baja</option>
+            </select>
             <button type="submit">Agregar Tarea</button>
         </form>
         <ul id="taskList"></ul>
